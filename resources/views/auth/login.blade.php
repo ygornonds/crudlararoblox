@@ -6,9 +6,8 @@
     <title>Robz - Login</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <style>
-        /* Estilo geral da página */
         body {
-            background-color: #f0f0f0; /* Cor de fundo cinza */
+            background-color: #232323;
             font-family: 'Arial', sans-serif;
             margin: 0;
             padding: 0;
@@ -27,18 +26,17 @@
             width: 100%;
         }
 
-        /* Caixa do formulário */
+       
         .form-container {
             background: #1a1a1a;
             border-radius: 12px;
             width: 100%;
-            max-width: 600px; /* Largura aumentada */
+            max-width: 600px; 
             padding: 40px 30px;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
             position: relative;
         }
 
-        /* Estilo do título e descrição */
         .form-container h3 {
             font-size: 2rem;
             font-weight: 600;
@@ -51,14 +49,13 @@
             margin-top: 8px;
         }
 
-        /* Separador */
         .separator {
             margin-top: 16px;
             height: 1px;
             background: linear-gradient(to right, transparent, #fff, transparent);
         }
 
-        /* Inputs e botões */
+     
         .input-field {
             background-color: #333;
             border-radius: 8px;
@@ -137,7 +134,7 @@
             margin-left: 10px;
         }
 
-        /* Responsividade para telas menores */
+  
         @media (max-width: 768px) {
             .form-container {
                 padding: 30px 20px;
@@ -162,7 +159,7 @@
 
     <div class="container">
         <div class="form-container">
-            <!-- Logo e Título -->
+    
             <div class="logo-container">
                 <img src="{{ asset('images/roblox.svg') }}" alt="Logo">
                 <span>Robz</span>
@@ -171,11 +168,11 @@
             <h3>Login</h3>
             <p>Bem-vindo de volta, insira suas credenciais para continuar.</p>
 
-            <!-- Formulário de login -->
+           
             <form method="POST" action="{{ route('login') }}">
                 @csrf
 
-                <!-- Campo de email -->
+        
                 <div>
                     <label for="email" class="input-label">Email</label>
                     <x-text-input 
@@ -191,7 +188,7 @@
                     <x-input-error :messages="$errors->get('email')" class="mt-2 text-red-500" />
                 </div>
 
-                <!-- Campo de senha -->
+               
                 <div class="mt-4">
                     <label for="password" class="input-label">Senha</label>
                     <x-text-input 
@@ -205,7 +202,6 @@
                     <x-input-error :messages="$errors->get('password')" class="mt-2 text-red-500" />
                 </div>
 
-                <!-- Lembrar de mim -->
                 <div class="mt-4">
                     <label for="remember_me" class="checkbox-label">
                         <input 
@@ -218,10 +214,8 @@
                     </label>
                 </div>
 
-                <!-- Botão de Login -->
                 <button type="submit" class="btn-primary">Entrar</button>
 
-                <!-- Links para recuperação e registro -->
                 <div class="form-links">
                     @if (Route::has('password.request'))
                         <a href="{{ route('password.request') }}">Esqueceu a senha?</a>

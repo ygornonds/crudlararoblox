@@ -1,5 +1,6 @@
 @extends('master')
-@include('nav') 
+@include('nav')
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,13 +8,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 
-    
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-gray-100"> 
+<body class="bg-gray-100">
 
-<div class="min-h-screen flex items-center justify-center"> 
-    <div class="w-full max-w-4xl bg-white p-6 rounded-lg shadow-lg"> 
+<!-- Ajustando o contêiner principal -->
+<div class="flex justify-center py-6"> <!-- Removi min-h-screen e ajustei para margem adequada -->
+    <div class="w-full max-w-4xl bg-gray-900 p-6 rounded-lg shadow-lg"> 
         
         @if (session()->has('message'))
             <div class="bg-green-500 text-white p-3 rounded mb-6 text-center">
@@ -22,7 +23,7 @@
         @endif
 
         <a href="{{ route('categorias.create') }}">
-            <button class="bg-gray-800 text-white px-6 py-3 rounded hover:bg-gray-600 transition duration-200 mb-6 inline-block">
+            <button class="bg-gray-800 text-white px-6 py-3 rounded hover:bg-gray-750 transition duration-200 mb-6 inline-block">
                 Adicionar
             </button>
         </a>
