@@ -65,7 +65,9 @@ class JogosController extends Controller
      */
     public function edit(Jogo $jogo)
     {
-        return view('jogo_edit', ['jogo' => $jogo]);
+        return view('jogos_edit', ['jogo' => $jogo]);
+
+
     }
 
     /**

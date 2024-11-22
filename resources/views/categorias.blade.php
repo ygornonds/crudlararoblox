@@ -12,8 +12,8 @@
 </head>
 <body class="bg-gray-100">
 
-<!-- Ajustando o contêiner principal -->
-<div class="flex justify-center py-6"> <!-- Removi min-h-screen e ajustei para margem adequada -->
+
+<div class="flex justify-center py-6"> 
     <div class="w-full max-w-4xl bg-gray-900 p-6 rounded-lg shadow-lg"> 
         
         @if (session()->has('message'))
@@ -21,7 +21,7 @@
                 {{ session()->get('message') }}
             </div>
         @endif
-
+        <h2 class="text-3xl font-semibold text-gray-100 mb-6 text-center">Categorias</h2>
         <a href="{{ route('categorias.create') }}">
             <button class="bg-gray-800 text-white px-6 py-3 rounded hover:bg-gray-750 transition duration-200 mb-6 inline-block">
                 Adicionar
