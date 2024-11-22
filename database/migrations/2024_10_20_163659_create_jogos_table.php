@@ -12,8 +12,11 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('jogos', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+            $table->id();  // chave primária
+            $table->string('nome');  // nome do jogo
+            $table->foreignId('id_categoria')->constrained('categorias')->onDelete('cascade');  // chave estrangeira para 'categorias'
+            $table->foreignId('id_criador')->constrained('criadores')->onDelete('cascade');  // chave estrangeira para 'criadores'
+            $table->timestamps();  // colunas 'created_at' e 'updated_at'
         });
     }
 

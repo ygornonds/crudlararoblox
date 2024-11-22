@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Jogo;
-
+use App\Models\Categoria;
+use App\Models\Criador;
 class JogosController extends Controller
 {
     public readonly Jogo $jogo;
@@ -25,8 +26,14 @@ class JogosController extends Controller
      */
     public function create()
     {
-        return view('jogos_create');
+        $categorias = Categoria::all();
+        $criadores = Criador::all();
+        return view('jogos_create', [
+            'categorias' => $categorias,
+            'criadores' => $criadores
+        ]);
     }
+    
 
     /**
      * Store a newly created resource in storage.
@@ -35,6 +42,8 @@ class JogosController extends Controller
     {
         $created = $this->jogo->create([
             'nome' => $request->input('nome'),
+            'id_categoria' => $request->input('id_categoria'),
+            'id_criador' => $request->input('id_criador'),
         ]);
 
         if ($created) {
