@@ -4,7 +4,7 @@
     <div class="bg-gray-900 p-8 rounded-lg shadow-lg w-full max-w-md"> 
         <form action="{{ route('jogos.store') }}" method="post">
             @csrf
-
+            <h2 class="text-3xl font-semibold text-gray-100 mb-6 text-center">Criar Jogos</h2>
             <div class="mb-4">
                 <label for="nome" class="block text-gray-200 text-sm font-semibold">Nome:</label>
                 <input type="text" class="w-full bg-gray-700 text-gray-300 border border-gray-600 rounded px-4 py-2 mt-2" id="nome" placeholder="Insira o nome" name="nome" required>

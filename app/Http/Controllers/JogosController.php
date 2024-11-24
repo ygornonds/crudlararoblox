@@ -6,9 +6,10 @@ use Illuminate\Http\Request;
 use App\Models\Jogo;
 use App\Models\Categoria;
 use App\Models\Criador;
+
 class JogosController extends Controller
 {
-    public readonly Jogo $jogo;
+    private Jogo $jogo;
 
     public function __construct()
     {
@@ -21,9 +22,6 @@ class JogosController extends Controller
         return view('jogos', ['jogos' => $jogos]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
         $categorias = Categoria::all();
@@ -33,68 +31,69 @@ class JogosController extends Controller
             'criadores' => $criadores
         ]);
     }
-    
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
+        $request->validate([
+            'nome' => 'required|string|max:255',
+            'id_categoria' => 'required|exists:categorias,id',
+            'id_criador' => 'required|exists:criadores,id',
+        ]);
+
         $created = $this->jogo->create([
             'nome' => $request->input('nome'),
             'id_categoria' => $request->input('id_categoria'),
             'id_criador' => $request->input('id_criador'),
         ]);
 
-        if ($created) {
-            return redirect()->route('jogos.index')->with('message', 'Jogo Cadastrado');
-        }
-        return redirect()->route('jogos.index')->with('message', 'Algo deu Errado');
+        return redirect()
+            ->route('jogos.index')
+            ->with('message', $created ? 'Jogo cadastrado com sucesso!' : 'Erro ao cadastrar o jogo.');
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(Jogo $jogo)
     {
-        return view('jogo_show', ['jogo' => $jogo]);
+        return view('jogos_show', ['jogo' => $jogo]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(Jogo $jogo)
     {
-        return view('jogos_edit', ['jogo' => $jogo]);
-
-
+        $categorias = Categoria::all();
+        $criadores = Criador::all();
+        return view('jogos_edit', [
+            'jogo' => $jogo,
+            'categorias' => $categorias,
+            'criadores' => $criadores
+        ]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Jogo $jogo)
     {
-        $updated = $this->jogo->where('id', $id)->update($request->except('_token', '_method'));
-        if ($updated) {
-            return redirect()->route('jogos.index')->with('message', 'Jogo Atualizado');
-        }
-        return redirect()->route('jogos.index')->with('message', 'Algo deu Errado');
+        $request->validate([
+            'nome' => 'required|string|max:255',
+            'id_categoria' => 'required|exists:categorias,id',
+            'id_criador' => 'required|exists:criadores,id',
+        ]);
+
+        $updated = $jogo->update($request->only(['nome', 'id_categoria', 'id_criador']));
+
+        return redirect()
+            ->route('jogos.index')
+            ->with('message', $updated ? 'Jogo atualizado com sucesso!' : 'Erro ao atualizar o jogo.');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
+    public function destroy(Jogo $jogo)
     {
-        $jogo = $this->jogo->find($id);
-    
-        if ($jogo) {
-            $jogo->delete();
-    
-            return redirect()->route('jogos.index')->with('message', 'Jogo ' . $jogo->nome . ' deletado');
+        $nome = $jogo->nome;
+
+        if ($jogo->delete()) {
+            return redirect()
+                ->route('jogos.index')
+                ->with('message', "Jogo '$nome' deletado com sucesso!");
         }
-    
-        return redirect()->route('jogos.index')->with('error', 'Jogo não encontrado');
+
+        return redirect()
+            ->route('jogos.index')
+            ->with('error', 'Erro ao deletar o jogo.');
     }
 }

@@ -39,9 +39,13 @@
                         <tr class="hover:bg-gray-700">
                             <td class="px-4 py-3 border-b border-gray-700">{{ $criador->id }}</td>
                             <td class="px-4 py-3 border-b border-gray-700">{{ $criador->nome }}</td>
-                            <td class="px-4 py-3 border-b border-gray-700">
-                                <a href="{{ route('criadores.edit', $criador->id) }}" class="text-blue-500 hover:text-blue-300 transition duration-150">Editar</a> |
-                                <a href="{{ route('criadores.show', $criador->id) }}" class="text-blue-500 hover:text-blue-300 transition duration-150">Mostrar</a>
+                            <td class="px-4 py-3 border-b border-gray-700 flex items-center space-x-4">
+                                <a href="{{ route('criadores.edit', $criador->id) }}" class="text-blue-500 hover:text-blue-300 transition duration-150">Editar</a> 
+                                <form action="{{ route('criadores.destroy', $criador->id) }}" method="POST" class="inline">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="text-red-500 hover:text-red-300 transition duration-150" onclick="return confirm('Tem certeza que deseja deletar este criador?')">Deletar</button>
+                                </form>
                             </td>
                         </tr> 
                     @endforeach

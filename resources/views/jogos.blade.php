@@ -44,9 +44,13 @@
                             <td class="px-4 py-3 border-b border-gray-700">{{ $jogo->nome }}</td>
                             <td class="px-4 py-3 border-b border-gray-700">{{ $jogo->categoria->nome }}</td>
                             <td class="px-4 py-3 border-b border-gray-700">{{ $jogo->criador->nome }}</td>
-                            <td class="px-4 py-3 border-b border-gray-700">
-                                <a href="{{ route('jogos.edit', $jogo->id) }}" class="text-blue-500 hover:text-blue-300 transition duration-150">Editar</a> |
-                                <a href="{{ route('jogos.show', $jogo->id) }}" class="text-blue-500 hover:text-blue-300 transition duration-150">Mostrar</a>
+                            <td class="px-4 py-3 border-b border-gray-700 flex items-center space-x-4">
+                                <a href="{{ route('jogos.edit', $jogo->id) }}" class="text-blue-500 hover:text-blue-300 transition duration-150">Editar</a> 
+                                <form action="{{ route('jogos.destroy', $jogo->id) }}" method="POST" class="inline">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="text-red-500 hover:text-red-300 transition duration-150" onclick="return confirm('Tem certeza que deseja deletar este jogo?')">Deletar</button>
+                                </form>
                             </td>
                         </tr>
                     @endforeach
