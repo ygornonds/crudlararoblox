@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreUpdateJogoRequest;
 use Illuminate\Http\Request;
 use App\Models\Jogo;
 use App\Models\Categoria;
@@ -32,7 +33,7 @@ class JogosController extends Controller
         ]);
     }
 
-    public function store(Request $request)
+    public function store(StoreUpdateJogoRequest $request)
     {
         $request->validate([
             'nome' => 'required|string|max:255',
@@ -67,7 +68,7 @@ class JogosController extends Controller
         ]);
     }
 
-    public function update(Request $request, Jogo $jogo)
+    public function update(StoreUpdateJogoRequest $request, Jogo $jogo)
     {
         $request->validate([
             'nome' => 'required|string|max:255',

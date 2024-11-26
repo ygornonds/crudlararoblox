@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreUpdateCategoriaRequest;
 use Illuminate\Http\Request;
 use App\Models\Categoria;
 class CategoriaController extends Controller
@@ -29,7 +30,7 @@ class CategoriaController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreUpdateCategoriaRequest $request)
     {
      $created = $this->categoria->create([
         'nome' => $request->input('nome'),
@@ -61,7 +62,7 @@ class CategoriaController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(StoreUpdateCategoriaRequest $request, string $id)
     {
          $updated = $this->categoria->where('id', $id)->update($request->except('_token', '_method'));
          if ($updated) {
